@@ -2,9 +2,9 @@ import aiogram
 import asyncio
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 
-bot = Bot("TOKEN)))")
+bot = Bot("8431434594:AAGy0YyxqZnDBmX2D7xd-kmQchgT-9qZHaQ")
 dp = Dispatcher()
 
 def main_menu():
@@ -15,7 +15,8 @@ def main_menu():
                 InlineKeyboardButton (text='Наработки', callback_data='developments')
             ],
             [
-                InlineKeyboardButton(text='Информация', callback_data='info')
+                InlineKeyboardButton(text='Информация', callback_data='info'),
+                InlineKeyboardButton(text="Моя карточка",web_app=WebAppInfo(url="https://setka.ru/"))
             ]
         ]
     )
@@ -65,7 +66,6 @@ async def send_developments(callback: types.CallbackQuery):
     await callback.message.edit_text("Мои наработки:", reply_markup = menu)
     await callback.answer()
 
-
 @dp.callback_query(lambda c: c.data and c.data.lower() == 'bad')
 async def bad_answer(message: types.Message):
     await message.answer(
@@ -103,6 +103,8 @@ async def go_back(callback: types.CallbackQuery):
 @dp.message()
 async def bad(message: types.Message):
     await message.answer("Нажмите кнопку /start. Текст не воспринимаю(")
+
+
 
 async def main():
     await dp.start_polling(bot)
